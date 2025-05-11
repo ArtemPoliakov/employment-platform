@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
-import { createDefaultJobseekerAPI } from "../Services/JobseekerService";
-import { createDefaultCompanyAPI } from "../Services/CompanyService";
 
 type UserContextType = {
   user: UserProfile | null;
@@ -53,17 +51,6 @@ export const UserProvider = ({ children }: Props) => {
         setToken(res.data.token);
         setUser(userObj);
         toast.success("Register Success!");
-
-        if (props.safeRole === "JOBSEEKER") {
-          await createDefaultJobseekerAPI().catch(() =>
-            toast.warn("Server error occurred while creating jobseeker profile")
-          );
-        } else if (props.safeRole === "COMPANY") {
-          await createDefaultCompanyAPI().catch(() =>
-            toast.warn("Server error occurred while creating company profile")
-          );
-        }
-
         navigate("/");
       }
     } catch (e) {

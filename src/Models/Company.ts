@@ -1,8 +1,3 @@
-export type CreateCompanyDto = {
-  SelfDescription: string;
-  Location: string;
-};
-
 export type CompanyDto = {
   userName: string;
   selfDescription: string;

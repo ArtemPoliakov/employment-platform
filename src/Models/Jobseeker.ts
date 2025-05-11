@@ -1,18 +1,3 @@
-export type CreateJobseekerDto = {
-  profession: string;
-  experience: number;
-  education: DegreeType;
-  location: string;
-  previousWorkplace: string;
-  previousPosition: string;
-  quitReason: string;
-  familyConditions: string;
-  livingConditions: string;
-  preferences: string;
-  selfDescription: string;
-  isEmployed: boolean;
-};
-
 export type JobseekerDto = {
   userName: string;
   profession: string;
