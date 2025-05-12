@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/useAuth";
+import { decodeJwt } from "../../../Helpers/JwtDecoder";
+import JobseekerHomePage from "./JobseekerHomePage";
+import CompanyHomePage from "./CompanyHomePage";
+import classes from "./../styles/home_styles.module.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -12,7 +16,15 @@ const HomePage = () => {
     }
   }, []);
 
-  return <div>HomePage</div>;
+  const tokenData = decodeJwt(localStorage.getItem("token") || "");
+
+  if (tokenData?.role === "JOBSEEKER") {
+    return <JobseekerHomePage />;
+  } else if (tokenData?.role === "COMPANY") {
+    return <CompanyHomePage />;
+  } else {
+    return <div>UNAUTHORIZED</div>;
+  }
 };
 
 export default HomePage;
