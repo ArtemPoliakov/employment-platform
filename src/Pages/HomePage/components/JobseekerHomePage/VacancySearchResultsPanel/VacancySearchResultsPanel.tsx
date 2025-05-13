@@ -5,8 +5,12 @@ import type { VacancyCompactDto } from "../../../../../Models/Vacancy";
 import { useQuery } from "@tanstack/react-query";
 import VacancySearchResultCard from "../VacancySearchResultCard/VacancySearchResultCard";
 import classes from "./vacancy_search_result_panel_styles.module.css";
+import PaginationButtons from "../PaginationButtons/PaginationButtons";
 
-type Props = { searchQuery: VacancyQuery };
+type Props = {
+  searchQuery: VacancyQuery;
+  setQueryState: React.Dispatch<React.SetStateAction<VacancyQuery>>;
+};
 
 const VacancySearchResultsPanel = (props: Props) => {
   const { data, error, isLoading } = useQuery({
@@ -19,10 +23,27 @@ const VacancySearchResultsPanel = (props: Props) => {
 
   const vacancies = data;
   return (
-    <div className={classes["vacancy-search-results__container"]}>
-      {vacancies.map((v: VacancyCompactDto) => (
-        <VacancySearchResultCard key={v.id} {...v} />
-      ))}
+    <div className={classes["vacancy-search-results__panel"]}>
+      <h1 className={classes["vacancy-search-results__heading"]}>
+        {isOnlyPagePropsSet(props.searchQuery)
+          ? "Recent vacancies"
+          : "Search results"}
+      </h1>
+      <div className={classes["vacancy-search-results__container"]}>
+        {vacancies.length > 0 ? (
+          vacancies.map((v: VacancyCompactDto) => (
+            <VacancySearchResultCard key={v.id} {...v} />
+          ))
+        ) : (
+          <div className={classes["vacancy-search-results__no-results-msg"]}>
+            No results found
+          </div>
+        )}
+      </div>
+      <PaginationButtons
+        query={props.searchQuery}
+        setQueryState={props.setQueryState}
+      />
     </div>
   );
 };

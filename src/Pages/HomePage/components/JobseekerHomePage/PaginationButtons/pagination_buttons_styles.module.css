@@ -1,0 +1,21 @@
+.pagination-buttons__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Merriweather", serif;
+  font-size: 1.5rem;
+  color: var(--primary-text-color);
+}
+
+.pagination-buttons__button {
+}
+
+.pagination-buttons__button--active {
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.pagination-buttons__button--incative {
+  color: var(--usual-element-color);
+}

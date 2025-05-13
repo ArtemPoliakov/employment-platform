@@ -6,7 +6,7 @@ type Props = {
 };
 
 const SearchVacanciesForm = (props: Props) => {
-  return <div>SearchVacanciesForm</div>;
+  return <div>SearchVacanciesForm </div>;
 };
 
 export default SearchVacanciesForm;

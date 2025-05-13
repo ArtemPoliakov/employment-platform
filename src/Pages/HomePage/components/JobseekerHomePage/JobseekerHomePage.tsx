@@ -21,7 +21,10 @@ const JobseekerHomePage = () => {
       <JobseekerNavbar />
       <div className={classes["jobseeker-home-page__search-area"]}>
         <SearchVacanciesForm setQueryState={setQuery} />
-        <VacancySearchResultsPanel searchQuery={query} />
+        <VacancySearchResultsPanel
+          searchQuery={query}
+          setQueryState={setQuery}
+        />
       </div>
     </>
   );
