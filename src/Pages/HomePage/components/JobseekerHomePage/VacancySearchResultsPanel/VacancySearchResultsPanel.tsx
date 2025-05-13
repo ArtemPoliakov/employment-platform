@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import VacancySearchResultCard from "../VacancySearchResultCard/VacancySearchResultCard";
 import classes from "./vacancy_search_result_panel_styles.module.css";
 import PaginationButtons from "../PaginationButtons/PaginationButtons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   searchQuery: VacancyQuery;
@@ -17,11 +19,43 @@ const VacancySearchResultsPanel = (props: Props) => {
     queryKey: ["vacancies", props.searchQuery],
     queryFn: () => searchVacancies(props.searchQuery),
   });
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-  if (!data) return <div>No data</div>;
 
-  const vacancies = data;
+  let result;
+  let vacancies = [];
+  if (isLoading) {
+    result = (
+      <div className={classes["vacancy-search-results__loading-msg"]}>
+        <FontAwesomeIcon
+          className={classes["vacancy-search-results__loading-spinner"]}
+          icon={faSpinner}
+          size="2x"
+        />
+        <div className={classes["vacancy-search-results__msg"]}>Loading...</div>
+      </div>
+    );
+  } else if (error) {
+    result = (
+      <div className={classes["vacancy-search-results__msg"]}>
+        Internal server error
+      </div>
+    );
+  } else if (!data) {
+    result = (
+      <div className={classes["vacancy-search-results__msg"]}>No data</div>
+    );
+  } else {
+    vacancies = data;
+    result =
+      vacancies.length > 0 ? (
+        vacancies.map((v: VacancyCompactDto) => (
+          <VacancySearchResultCard key={v.id} {...v} />
+        ))
+      ) : (
+        <div className={classes["vacancy-search-results__msg"]}>
+          No results found
+        </div>
+      );
+  }
   return (
     <div className={classes["vacancy-search-results__panel"]}>
       <h1 className={classes["vacancy-search-results__heading"]}>
@@ -30,19 +64,12 @@ const VacancySearchResultsPanel = (props: Props) => {
           : "Search results"}
       </h1>
       <div className={classes["vacancy-search-results__container"]}>
-        {vacancies.length > 0 ? (
-          vacancies.map((v: VacancyCompactDto) => (
-            <VacancySearchResultCard key={v.id} {...v} />
-          ))
-        ) : (
-          <div className={classes["vacancy-search-results__no-results-msg"]}>
-            No results found
-          </div>
-        )}
+        {result}
       </div>
       <PaginationButtons
         query={props.searchQuery}
         setQueryState={props.setQueryState}
+        isLastPage={vacancies.length < props.searchQuery.pageSize}
       />
     </div>
   );
@@ -62,7 +89,11 @@ const isOnlyPagePropsSet = (query: Record<string, any>) => {
   const allowed = new Set(["page", "pageSize"]);
 
   return Object.entries(query).every(([key, value]) => {
-    return allowed.has(key) || value == undefined;
+    return (
+      allowed.has(key) ||
+      value == undefined ||
+      (key === "workMode" && value === "NONE")
+    );
   });
 };
 

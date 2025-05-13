@@ -3,7 +3,7 @@ import JobseekerNavbar from "../JobseekerNavbar";
 import generalClasses from "./../../styles/home_styles.module.css";
 import classes from "./jobseeker_home_page_styles.module.css";
 import type { VacancyQuery } from "../../../../Models/Queries";
-import SearchVacanciesForm from "./SearchVacanciesForm";
+import SearchVacanciesForm from "./SearchVacanciesForm/SearchVacanciesForm";
 import VacancySearchResultsPanel from "./VacancySearchResultsPanel/VacancySearchResultsPanel";
 
 const JobseekerHomePage = () => {

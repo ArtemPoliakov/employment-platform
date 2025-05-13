@@ -6,7 +6,6 @@
   min-width: 600px;
   height: 75vh;
   border-radius: 8px;
-  padding: 0.5rem;
 }
 
 .vacancy-search-results__container {
@@ -14,6 +13,7 @@
   flex-direction: column;
   gap: 0.5rem;
   height: 100%;
+  width: 100%;
   overflow: scroll;
 }
 
@@ -23,9 +23,36 @@
   font-family: "Playfair display", serif;
 }
 
-.vacancy-search-results__no-results-msg {
+.vacancy-search-results__loading-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.5rem;
   color: var(--primary-text-color);
   font-family: "Playfair display", serif;
   margin: auto;
+}
+
+.vacancy-search-results__msg {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+  margin: auto;
+}
+
+.vacancy-search-results__loading-spinner {
+  margin-block: auto;
+  animation: spin 1s ease-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

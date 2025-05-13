@@ -9,6 +9,7 @@ import clsx from "clsx";
 type Props = {
   query: VacancyQuery;
   setQueryState: React.Dispatch<React.SetStateAction<VacancyQuery>>;
+  isLastPage: boolean;
 };
 
 const PaginationButtons = (props: Props) => {
@@ -18,7 +19,7 @@ const PaginationButtons = (props: Props) => {
     }
   };
   const onClickNext = () => {
-    if (props.query.page < 100) {
+    if (props.query.page < 100 && !props.isLastPage) {
       props.setQueryState((prev) => ({ ...prev, page: prev.page + 1 }));
     }
   };
@@ -39,7 +40,7 @@ const PaginationButtons = (props: Props) => {
       <FontAwesomeIcon
         className={
           (classes["pagination-buttons__button"],
-          props.query.page < 100
+          props.query.page < 100 && !props.isLastPage
             ? classes["pagination-buttons__button--active"]
             : classes["pagination-buttons__button--incative"])
         }

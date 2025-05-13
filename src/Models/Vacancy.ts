@@ -1,4 +1,4 @@
-export type WorkMode = "REMOTE" | "OFFICE" | "OTHER";
+export type WorkMode = "REMOTE" | "OFFICE" | "OTHER" | "NONE";
 
 export type VacancyCompactDto = {
   companyUserName: string;
