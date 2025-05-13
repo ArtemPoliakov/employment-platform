@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./Context/useAuth";
 import AuthPage from "./Pages/AuthPage/components/AuthPage";
 import HomePage from "./Pages/HomePage/components/HomePage";
+import VacancyPage from "./Pages/VacancyPage/VacancyPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -20,6 +21,7 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<HomePage />} />
         <Route path="auth" element={<AuthPage />} />
+        <Route path="vacancy/:vacancyId" element={<VacancyPage />} />
       </Route>
     )
   );

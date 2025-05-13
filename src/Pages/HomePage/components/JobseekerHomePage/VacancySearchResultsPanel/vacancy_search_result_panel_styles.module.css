@@ -1,0 +1,8 @@
+.vacancy-search-results__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: clamp(500px, 40%, 700px);
+  height: 70vh;
+  overflow: scroll;
+}

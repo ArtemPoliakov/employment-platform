@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/useAuth";
 import { decodeJwt } from "../../../Helpers/JwtDecoder";
-import JobseekerHomePage from "./JobseekerHomePage";
+import JobseekerHomePage from "./JobseekerHomePage/JobseekerHomePage";
 import CompanyHomePage from "./CompanyHomePage";
 import classes from "./../styles/home_styles.module.css";
 
