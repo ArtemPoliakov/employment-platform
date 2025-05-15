@@ -16,6 +16,7 @@ const JobseekerHomePage = () => {
     workMode: undefined,
     generalDescription: undefined,
   });
+
   return (
     <>
       <JobseekerNavbar />

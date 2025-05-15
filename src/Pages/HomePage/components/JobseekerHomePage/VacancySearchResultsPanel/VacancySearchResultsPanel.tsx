@@ -1,6 +1,9 @@
 import React from "react";
 import type { VacancyQuery } from "../../../../../Models/Queries";
-import { searchVacanciesByQueryAPI } from "../../../../../Services/VacancyService";
+import {
+  getRecentVacanciesAPI,
+  searchVacanciesByQueryAPI,
+} from "../../../../../Services/VacancyService";
 import type { VacancyCompactDto } from "../../../../../Models/Vacancy";
 import { useQuery } from "@tanstack/react-query";
 import VacancySearchResultCard from "../VacancySearchResultCard/VacancySearchResultCard";
@@ -18,6 +21,7 @@ const VacancySearchResultsPanel = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["vacancies", props.searchQuery],
     queryFn: () => searchVacancies(props.searchQuery),
+    staleTime: 20000,
   });
 
   let result;
@@ -77,7 +81,7 @@ const VacancySearchResultsPanel = (props: Props) => {
 
 const searchVacancies = async (query: VacancyQuery) => {
   if (isOnlyPagePropsSet(query)) {
-    return await searchVacanciesByQueryAPI({
+    return await getRecentVacanciesAPI({
       page: query.page,
       pageSize: query.pageSize,
     }).then((res) => res?.data);

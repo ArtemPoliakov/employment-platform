@@ -11,7 +11,6 @@ import reusableClasses from "./../../../../../global_styles/reusable.module.css"
 type Props = {
   setQueryState: React.Dispatch<React.SetStateAction<VacancyQuery>>;
 };
-// BUGS !!!!!!
 const validation = Yup.object().shape({
   position: Yup.string()
     .notRequired()
@@ -59,11 +58,36 @@ const SearchVacanciesForm = (props: Props) => {
 
   const handleSubmitQuery = (form: QueryFormInputs) => {
     const query = {
-      position: form.position?.trim() ?? undefined,
-      minSalary: form.minSalary ?? undefined,
-      maxSalary: form.maxSalary ?? undefined,
-      workMode: form.workMode ?? undefined,
-      generalDescription: form.generalDescription?.trim() ?? undefined,
+      position:
+        form.position === null
+          ? undefined
+          : form.position.trim() == ""
+            ? undefined
+            : form.position,
+      minSalary:
+        form.minSalary === null
+          ? undefined
+          : form.minSalary == 1
+            ? undefined
+            : form.minSalary,
+      maxSalary:
+        form.maxSalary === null
+          ? undefined
+          : form.maxSalary == 100_000_000_000
+            ? undefined
+            : form.maxSalary,
+      workMode:
+        form.workMode === null
+          ? undefined
+          : form.workMode === "NONE"
+            ? undefined
+            : form.workMode,
+      generalDescription:
+        form.generalDescription === null
+          ? undefined
+          : form.generalDescription.trim() == ""
+            ? undefined
+            : form.generalDescription,
     };
     props.setQueryState((prev) => ({ ...prev, ...query }));
   };
