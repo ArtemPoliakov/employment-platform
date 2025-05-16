@@ -8,6 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import type { WorkMode } from "../../../../../Models/Vacancy";
 import type { InferType } from "yup";
 import reusableClasses from "./../../../../../global_styles/reusable.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRepeat } from "@fortawesome/free-solid-svg-icons";
+import { useQueryClient } from "@tanstack/react-query";
 type Props = {
   setQueryState: React.Dispatch<React.SetStateAction<VacancyQuery>>;
 };
@@ -48,6 +51,7 @@ const validation = Yup.object().shape({
 type QueryFormInputs = Yup.InferType<typeof validation>;
 
 const SearchVacanciesForm = (props: Props) => {
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -200,13 +204,21 @@ const SearchVacanciesForm = (props: Props) => {
             ""
           )}
         </div>
-
-        <button
-          className={clsx(reusableClasses["btn"], classes["form__btn"])}
-          type="submit"
-        >
-          Search
-        </button>
+        <div className={classes["form__management-buttons-container"]}>
+          <button
+            className={clsx(reusableClasses["btn"], classes["form__btn"])}
+            type="submit"
+          >
+            Search
+          </button>
+          <FontAwesomeIcon
+            icon={faRepeat}
+            className={classes["form__refresh-button"]}
+            onClick={() =>
+              queryClient.invalidateQueries({ queryKey: ["vacancies"] })
+            }
+          />
+        </div>
       </form>
     </section>
   );

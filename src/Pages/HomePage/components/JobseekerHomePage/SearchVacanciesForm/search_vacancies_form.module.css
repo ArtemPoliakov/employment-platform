@@ -41,3 +41,22 @@
   color: var(--danger-color);
   font-size: 0.8rem;
 }
+
+.form__refresh-button {
+  color: var(--primary-text-color);
+  font-size: 1.5rem;
+  margin-right: 0.2rem;
+  transition: scale 0.2s ease-in-out;
+}
+
+.form__refresh-button:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.form__management-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
