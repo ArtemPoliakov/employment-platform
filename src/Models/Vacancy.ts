@@ -9,6 +9,8 @@ export type VacancyCompactDto = {
   salaryMax: number;
   workMode: WorkMode;
   id: string;
+  applicationStatus: string;
+  offerStatus: string;
 };
 
 export type VacancyDto = {
@@ -24,4 +26,6 @@ export type VacancyDto = {
   livingConditions: string;
   editDate: Date;
   publishDate: Date;
+  applicationStatus: string;
+  offerStatus: string;
 };

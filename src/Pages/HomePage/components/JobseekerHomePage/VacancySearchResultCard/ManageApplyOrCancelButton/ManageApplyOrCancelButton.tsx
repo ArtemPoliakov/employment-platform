@@ -1,13 +1,15 @@
 import React from "react";
-import type { ApplicationStatus } from "../../../../../Models/Application";
-import reusableCLasses from "./../../../../../global_styles/reusable.module.css";
+import type { ApplicationStatus } from "../../../../../../Models/Application";
+import reusableCLasses from "./../../../../../../global_styles/reusable.module.css";
+import classes from "./manage_apply_or_cancel_button_styles.module.css";
 import {
   applyToVacancyAPI,
   deleteApplicationAPI,
-} from "../../../../../Services/ApplicationService";
+} from "../../../../../../Services/ApplicationService";
 import { jwtDecode } from "jwt-decode";
-import { useAuth } from "../../../../../Context/useAuth";
+import { useAuth } from "../../../../../../Context/useAuth";
 import { useQueryClient } from "@tanstack/react-query";
+import clsx from "clsx";
 type Props = {
   vacancyId: string;
   applicationStatus: ApplicationStatus;
@@ -25,10 +27,7 @@ const ManageApplyVacancyButton = (props: Props) => {
   };
 
   const deleteApplication = async () => {
-    await deleteApplicationAPI(
-      props.vacancyId,
-      jwtDecode(token || "").sub || ""
-    );
+    await deleteApplicationAPI(props.vacancyId, user?.accountDataId || "");
     client.invalidateQueries({ queryKey: props.queryKeys });
   };
   const getContent = () => {
@@ -37,7 +36,10 @@ const ManageApplyVacancyButton = (props: Props) => {
         return (
           <button
             style={{ fontSize: props.size }}
-            className={reusableCLasses["btn"]}
+            className={clsx(
+              reusableCLasses["btn"],
+              reusableCLasses["btn--danger"]
+            )}
             onClick={deleteApplication}
           >
             Cancel

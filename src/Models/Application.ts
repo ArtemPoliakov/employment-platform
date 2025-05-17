@@ -1,1 +1,6 @@
-export type ApplicationStatus = "PENDING" | "REJECTED" | "ACCEPTED" | undefined;
+export type ApplicationStatus =
+  | "PENDING"
+  | "REJECTED"
+  | "ACCEPTED"
+  | "NONE"
+  | undefined;

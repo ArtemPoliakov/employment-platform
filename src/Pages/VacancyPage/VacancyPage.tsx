@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { getVacancyByIdAPI } from "../../Services/VacancyService";
 import classes from "./vacancy_page_styles.module.css";
 import JobseekerNavbar from "../HomePage/components/JobseekerNavbar";
-import ManageApplyVacancyButton from "../HomePage/components/JobseekerHomePage/VacancySearchResultCard/ManageApplyOrCancelButton";
+import ManageApplyVacancyButton from "../HomePage/components/JobseekerHomePage/VacancySearchResultCard/ManageApplyOrCancelButton/ManageApplyOrCancelButton";
+import type { ApplicationStatus } from "../../Models/Application";
 type Props = {};
 
 const VacancyPage = (props: Props) => {
@@ -15,6 +16,7 @@ const VacancyPage = (props: Props) => {
     queryFn: async () =>
       await getVacancyByIdAPI(vacancyId!).then((res) => res?.data),
     staleTime: 20000,
+    refetchOnMount: "always",
   });
 
   return (
@@ -52,7 +54,7 @@ const VacancyPage = (props: Props) => {
             {viewMode == "jobseekerViewApply" && (
               <ManageApplyVacancyButton
                 vacancyId={vacancyId!}
-                applicationStatus={undefined}
+                applicationStatus={data?.applicationStatus as ApplicationStatus}
                 size="1.2rem"
                 queryKeys={["vacancy", vacancyId!]}
               />

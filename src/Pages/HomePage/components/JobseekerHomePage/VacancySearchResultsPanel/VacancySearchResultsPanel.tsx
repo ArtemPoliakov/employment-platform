@@ -22,6 +22,7 @@ const VacancySearchResultsPanel = (props: Props) => {
     queryKey: ["vacancies", props.searchQuery],
     queryFn: () => searchVacancies(props.searchQuery),
     staleTime: 20000,
+    refetchOnMount: "always",
   });
 
   let result;

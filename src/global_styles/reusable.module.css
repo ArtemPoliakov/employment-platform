@@ -13,6 +13,14 @@
   font-family: "Merriweather", serif;
 }
 
+.btn--danger {
+  background-color: var(--danger-color);
+}
+
+.btn--ok {
+  background-color: var(--ok-color);
+}
+
 .input-field {
   background-color: var(--lighter-bg-color);
   border: 1px solid var(--usual-element-color);

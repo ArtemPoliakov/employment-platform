@@ -16,6 +16,7 @@ export type UserProfileToken = {
   email: string;
   phoneNumber: string;
   role: "JOBSEEKER" | "COMPANY";
+  accountDataId: string;
   token: string;
 };
 
@@ -24,4 +25,5 @@ export type UserProfile = {
   email: string;
   phoneNumber: string;
   role: "JOBSEEKER" | "COMPANY";
+  accountDataId: string;
 };

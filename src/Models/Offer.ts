@@ -1,1 +1,6 @@
-export type OfferStatus = "PENDING" | "REJECTED" | "ACCEPTED" | undefined;
+export type OfferStatus =
+  | "PENDING"
+  | "REJECTED"
+  | "ACCEPTED"
+  | "NONE"
+  | undefined;

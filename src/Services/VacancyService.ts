@@ -39,7 +39,7 @@ export const searchVacanciesByQueryAPI = async (props: VacancyQuery) => {
 export const getVacancyByIdAPI = async (id: string) => {
   try {
     const data = await axios.get<VacancyDto>(
-      config.API_BASE_URL + "vacancy/get/" + id
+      config.API_BASE_URL + "vacancy/getWithStatus/" + id
     );
     return data;
   } catch (error) {

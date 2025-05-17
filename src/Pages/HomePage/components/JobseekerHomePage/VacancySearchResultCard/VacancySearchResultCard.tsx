@@ -13,8 +13,8 @@ const VacancySearchResultCard = (vacancy: VacancyCompactDto) => {
       </p>
       <p className={classes["card__company-name"]}>{vacancy.companyUserName}</p>
       <div className={classes["card__button-container"]}>
-        <VacancyCardButton type="DETAILED" vacancyId={vacancy.id} />
-        <VacancyCardButton type="APPLY" vacancyId={vacancy.id} />
+        <VacancyCardButton type="DETAILED" vacancyCompact={vacancy} />
+        <VacancyCardButton type="APPLY" vacancyCompact={vacancy} />
       </div>
     </div>
   );
