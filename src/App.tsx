@@ -21,7 +21,7 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<HomePage />} />
         <Route path="auth" element={<AuthPage />} />
-        <Route path="vacancy/:vacancyId" element={<VacancyPage />} />
+        <Route path="vacancy/:vacancyId/:viewMode" element={<VacancyPage />} />
       </Route>
     )
   );
