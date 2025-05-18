@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { ApplicationStatus } from "../../../../../../Models/Application";
 import reusableCLasses from "./../../../../../../global_styles/reusable.module.css";
 import classes from "./manage_apply_or_cancel_button_styles.module.css";
@@ -10,6 +10,9 @@ import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../../../../../Context/useAuth";
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
+import DialogWindow from "../../../../../../reusable_components/DialogWindow/DialogWindow";
+import YesNoDialog from "../../../../../../reusable_components/YesNoDialog/YesNoDialog";
+
 type Props = {
   vacancyId: string;
   applicationStatus: ApplicationStatus;
@@ -20,6 +23,7 @@ type Props = {
 const ManageApplyVacancyButton = (props: Props) => {
   const { user, token } = useAuth();
   const client = useQueryClient();
+  const [isCancelDialogShown, setIsCancelDialogShown] = useState(false);
 
   const applyToVacancy = async () => {
     await applyToVacancyAPI(props.vacancyId, user?.userName || "");
@@ -40,7 +44,7 @@ const ManageApplyVacancyButton = (props: Props) => {
               reusableCLasses["btn"],
               reusableCLasses["btn--danger"]
             )}
-            onClick={deleteApplication}
+            onClick={() => setIsCancelDialogShown(true)}
           >
             Cancel
           </button>
@@ -62,7 +66,23 @@ const ManageApplyVacancyButton = (props: Props) => {
     }
   };
 
-  return getContent();
+  return (
+    <>
+      {getContent()}
+      <DialogWindow
+        show={isCancelDialogShown}
+        onClose={() => setIsCancelDialogShown(false)}
+        onSubmit={() => {
+          deleteApplication();
+          setIsCancelDialogShown(false);
+        }}
+      >
+        <YesNoDialog
+          message={"Are you sure you want to cancel the application?"}
+        />
+      </DialogWindow>
+    </>
+  );
 };
 
 export default ManageApplyVacancyButton;

@@ -20,7 +20,7 @@
 }
 
 .yes-button {
-  background-color: var(--danger-color);
+  background-color: var(--ok-color);
   padding-inline: 2em;
 }
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { useDialogContext } from "../../../../Context/DialogWindowContext";
-import classes from "./cancel_application_dialog_styles.module.css";
-import reusableClasses from "./../../../../global_styles/reusable.module.css";
+import { useDialogContext } from "../../Context/DialogWindowContext";
+import classes from "./yes_no_dialog_styles.module.css";
+import reusableClasses from "./../../global_styles/reusable.module.css";
 import clsx from "clsx";
 type Props = { message: string };
 
-const CancelApplicationDialog = (props: Props) => {
+const YesNoDialog = (props: Props) => {
   const { onSubmit, onClose } = useDialogContext();
   return (
     <div className={classes["dialog"]}>
@@ -28,4 +28,4 @@ const CancelApplicationDialog = (props: Props) => {
   );
 };
 
-export default CancelApplicationDialog;
+export default YesNoDialog;

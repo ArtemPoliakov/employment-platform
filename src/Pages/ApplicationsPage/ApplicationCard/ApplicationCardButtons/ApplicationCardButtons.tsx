@@ -10,7 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 import DialogWindow from "../../../../reusable_components/DialogWindow/DialogWindow";
-import CancelApplicationDialog from "../../dialogues/CancelApplicationDialog/CancelApplicationDialog";
+import YesNoDialog from "../../../../reusable_components/YesNoDialog/YesNoDialog";
+import InfoDialog from "../../../../reusable_components/InfoDialog/InfoDialog";
+
 type Props = { application: ApplicationWithVacancyDto };
 
 const ApplicationCardButtons = (props: Props) => {
@@ -91,7 +93,12 @@ const ApplicationCardButtons = (props: Props) => {
             icon={faTrashCan}
             size="2x"
             className={classes["application-card__delete-icon"]}
-            onClick={deleteApplication}
+            onClick={() => {
+              setDeleteApplicationMessage(
+                "Are you sure you want to delete this application?"
+              );
+              setIsCancelDialogShown(true);
+            }}
           />
         );
       }
@@ -115,14 +122,14 @@ const ApplicationCardButtons = (props: Props) => {
         onClose={() => setIsViewResponseShown(false)}
         onSubmit={() => {}}
       >
-        {props.application.companyResponse}
+        <InfoDialog message={props.application.companyResponse} />
       </DialogWindow>
       <DialogWindow
         show={isCancelDialogShown}
         onClose={() => setIsCancelDialogShown(false)}
         onSubmit={deleteApplication}
       >
-        <CancelApplicationDialog message={deleteApplicationMessage} />
+        <YesNoDialog message={deleteApplicationMessage} />
       </DialogWindow>
     </>
   );
