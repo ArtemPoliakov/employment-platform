@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./application_card_buttons_styles.module.css";
 import reusableClasses from "./../../../../global_styles/reusable.module.css";
 import type { ApplicationWithVacancyDto } from "../../../../Models/Application";
@@ -9,6 +9,8 @@ import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
+import DialogWindow from "../../../../reusable_components/DialogWindow/DialogWindow";
+import CancelApplicationDialog from "../../dialogues/CancelApplicationDialog/CancelApplicationDialog";
 type Props = { application: ApplicationWithVacancyDto };
 
 const ApplicationCardButtons = (props: Props) => {
@@ -16,6 +18,13 @@ const ApplicationCardButtons = (props: Props) => {
   const client = useQueryClient();
   const navigate = useNavigate();
 
+  const [isViewResponseShown, setIsViewResponseShown] = useState(false);
+  const [isCancelDialogShown, setIsCancelDialogShown] = useState(false);
+  const [deleteApplicationMessage, setDeleteApplicationMessage] = useState("");
+
+  const viewCompanyResponse = () => {
+    setIsViewResponseShown(true);
+  };
   const deleteApplication = async () => {
     await deleteApplicationAPI(
       props.application.vacancyId,
@@ -26,7 +35,6 @@ const ApplicationCardButtons = (props: Props) => {
   const navigateToVacancyPage = () => {
     navigate(`/vacancy/${props.application.vacancyId}/${"jobseekerViewApply"}`);
   };
-  const viewCompanyResponse = () => {};
 
   const getButtons = () => {
     switch (props.application.status) {
@@ -38,7 +46,12 @@ const ApplicationCardButtons = (props: Props) => {
                 reusableClasses["btn"],
                 classes["application-card__cancelButton"]
               )}
-              onClick={deleteApplication}
+              onClick={() => {
+                setDeleteApplicationMessage(
+                  "Are you sure you want to cancel this application?"
+                );
+                setIsCancelDialogShown(true);
+              }}
             >
               Cancel
             </button>
@@ -62,7 +75,12 @@ const ApplicationCardButtons = (props: Props) => {
               icon={faTrashCan}
               size="2x"
               className={classes["application-card__delete-icon"]}
-              onClick={deleteApplication}
+              onClick={() => {
+                setDeleteApplicationMessage(
+                  "Are you sure you want to delete this application?"
+                );
+                setIsCancelDialogShown(true);
+              }}
             />
           </>
         );
@@ -81,15 +99,32 @@ const ApplicationCardButtons = (props: Props) => {
   };
 
   return (
-    <div className={classes["application-card__buttons-container"]}>
-      <button
-        className={reusableClasses["btn"]}
-        onClick={navigateToVacancyPage}
+    <>
+      {" "}
+      <div className={classes["application-card__buttons-container"]}>
+        <button
+          className={reusableClasses["btn"]}
+          onClick={navigateToVacancyPage}
+        >
+          Detailed
+        </button>
+        {getButtons()}
+      </div>
+      <DialogWindow
+        show={isViewResponseShown}
+        onClose={() => setIsViewResponseShown(false)}
+        onSubmit={() => {}}
       >
-        Detailed
-      </button>
-      {getButtons()}
-    </div>
+        {props.application.companyResponse}
+      </DialogWindow>
+      <DialogWindow
+        show={isCancelDialogShown}
+        onClose={() => setIsCancelDialogShown(false)}
+        onSubmit={deleteApplication}
+      >
+        <CancelApplicationDialog message={deleteApplicationMessage} />
+      </DialogWindow>
+    </>
   );
 };
 
