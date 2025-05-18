@@ -1,14 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getVacancyByIdAPI } from "../../Services/VacancyService";
 import classes from "./vacancy_page_styles.module.css";
 import JobseekerNavbar from "../HomePage/components/JobseekerNavbar";
 import ManageApplyVacancyButton from "../HomePage/components/JobseekerHomePage/VacancySearchResultCard/ManageApplyOrCancelButton/ManageApplyOrCancelButton";
 import type { ApplicationStatus } from "../../Models/Application";
+import { useAuth } from "../../Context/useAuth";
 type Props = {};
 
 const VacancyPage = (props: Props) => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/auth");
+    }
+  }, []);
+
   const { vacancyId, viewMode } = useParams();
 
   const { data, error, isLoading } = useQuery({

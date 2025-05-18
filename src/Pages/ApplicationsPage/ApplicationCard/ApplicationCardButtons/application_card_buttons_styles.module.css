@@ -1,0 +1,15 @@
+.application-card__cancelButton {
+  background-color: var(--danger-color);
+}
+
+.application-card__delete-icon {
+  color: var(--regular-text-color);
+  cursor: pointer;
+}
+
+.application-card__buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

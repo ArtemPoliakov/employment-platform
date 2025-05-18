@@ -13,6 +13,7 @@ import { faRepeat } from "@fortawesome/free-solid-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 type Props = {
   setQueryState: React.Dispatch<React.SetStateAction<VacancyQuery>>;
+  searchQuery: VacancyQuery;
 };
 const validation = Yup.object().shape({
   position: Yup.string()
@@ -58,6 +59,13 @@ const SearchVacanciesForm = (props: Props) => {
     formState: { errors },
   } = useForm<InferType<typeof validation>>({
     resolver: yupResolver(validation),
+    defaultValues: {
+      position: props.searchQuery?.position ?? "",
+      minSalary: props.searchQuery?.minSalary ?? undefined,
+      maxSalary: props.searchQuery?.maxSalary ?? undefined,
+      workMode: props.searchQuery?.workMode ?? "NONE",
+      generalDescription: props.searchQuery?.generalDescription ?? "",
+    },
   });
 
   const handleSubmitQuery = (form: QueryFormInputs) => {
@@ -93,7 +101,7 @@ const SearchVacanciesForm = (props: Props) => {
             ? undefined
             : form.generalDescription,
     };
-    props.setQueryState((prev) => ({ ...prev, ...query }));
+    props.setQueryState((prev) => ({ ...prev, ...query, page: 1 }));
   };
 
   return (

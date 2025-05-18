@@ -6,6 +6,7 @@
 import axios from "axios";
 import config from "../config";
 import { handleError } from "../Helpers/ErrorHandler";
+import type { ApplicationWithVacancyDto } from "../Models/Application";
 
 export const applyToVacancyAPI = async (
   vacancyId: string,
@@ -34,6 +35,23 @@ export const deleteApplicationAPI = async (
       config.API_BASE_URL + `jobApplication/delete`,
       { params: { vacancyId: vacancyId, jobseekerId: jobseekerId } }
     );
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getApplicationsForJobseekerAPI = async (
+  jobseekerUsername: string,
+  page: number,
+  pageSize: number
+) => {
+  try {
+    const data = await axios
+      .get<
+        ApplicationWithVacancyDto[]
+      >(config.API_BASE_URL + `jobApplication/getAllByJobseekerUserName`, { params: { jobseekerUsername, page, pageSize } })
+      .then((res) => res.data);
     return data;
   } catch (error) {
     handleError(error);

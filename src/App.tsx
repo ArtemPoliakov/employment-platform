@@ -14,12 +14,14 @@ import { UserProvider } from "./Context/useAuth";
 import AuthPage from "./Pages/AuthPage/components/AuthPage";
 import HomePage from "./Pages/HomePage/components/HomePage";
 import VacancyPage from "./Pages/VacancyPage/VacancyPage";
+import ApplicationsPage from "./Pages/ApplicationsPage/ApplicationsPage";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<HomePage />} />
+        <Route path="applications" element={<ApplicationsPage />} />
         <Route path="auth" element={<AuthPage />} />
         <Route path="vacancy/:vacancyId/:viewMode" element={<VacancyPage />} />
       </Route>

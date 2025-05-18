@@ -41,6 +41,8 @@ export const UserProvider = ({ children }: Props) => {
 
       if (res) {
         localStorage.setItem("token", res.data.token);
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + res?.data.token;
         const userObj = {
           userName: res.data.userName,
           email: res.data.email,
@@ -64,6 +66,8 @@ export const UserProvider = ({ children }: Props) => {
       .then((res) => {
         if (res) {
           localStorage.setItem("token", res?.data.token);
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + res?.data.token;
           const userObj = {
             userName: res?.data.userName,
             email: res?.data.email,

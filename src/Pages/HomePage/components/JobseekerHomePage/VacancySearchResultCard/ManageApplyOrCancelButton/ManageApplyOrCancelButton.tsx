@@ -46,9 +46,9 @@ const ManageApplyVacancyButton = (props: Props) => {
           </button>
         );
       case "ACCEPTED":
-        return <div>ACCEPTED</div>;
+        return <div className={classes["accepted-msg"]}>ACCEPTED</div>;
       case "REJECTED":
-        return <div>REJECTED</div>;
+        return <div className={classes["rejected-msg"]}>REJECTED</div>;
       default:
         return (
           <button

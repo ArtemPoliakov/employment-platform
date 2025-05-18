@@ -11,6 +11,7 @@ import classes from "./vacancy_search_result_panel_styles.module.css";
 import PaginationButtons from "../PaginationButtons/PaginationButtons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingSpinner from "../../../../../reusable_components/LoadingSpinner/LoadingSpinner";
 
 type Props = {
   searchQuery: VacancyQuery;
@@ -28,16 +29,7 @@ const VacancySearchResultsPanel = (props: Props) => {
   let result;
   let vacancies = [];
   if (isLoading) {
-    result = (
-      <div className={classes["vacancy-search-results__loading-msg"]}>
-        <FontAwesomeIcon
-          className={classes["vacancy-search-results__loading-spinner"]}
-          icon={faSpinner}
-          size="2x"
-        />
-        <div className={classes["vacancy-search-results__msg"]}>Loading...</div>
-      </div>
-    );
+    result = <LoadingSpinner />;
   } else if (error) {
     result = (
       <div className={classes["vacancy-search-results__msg"]}>

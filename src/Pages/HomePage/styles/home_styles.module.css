@@ -1,19 +1,23 @@
 .home__navbar {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 0 1rem;
   margin-inline: auto;
   margin-top: 1rem;
   gap: 2rem;
+  width: 100%;
 }
 
 .home__navbar-link-list {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .home__navbar-link {
@@ -27,6 +31,7 @@
   font-size: 1.2rem;
   height: 100%;
   width: 100%;
+  cursor: pointer;
 }
 
 .home__navbar-link-li {
@@ -40,4 +45,26 @@
 
 .home__navbar-link:hover {
   scale: 1.1;
+}
+
+.home__navbar-link-li--active {
+  color: var(--primary-text-color);
+}
+.home__navbar-link-li--active:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.home__navbar-link-li--inactive {
+  color: var(--usual-element-color);
+}
+.home__navbar-link-li--inactive:hover {
+  scale: 1;
+  cursor: default;
+}
+
+.navbar-arrow-back {
+  position: absolute;
+  left: 2rem;
+  margin-block: auto;
 }
