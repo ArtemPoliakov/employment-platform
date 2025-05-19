@@ -27,3 +27,11 @@ export type UserProfile = {
   role: "JOBSEEKER" | "COMPANY";
   accountDataId: string;
 };
+
+export type AppUserPublicDataDto = {
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  id: string;
+};

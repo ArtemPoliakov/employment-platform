@@ -1,3 +1,5 @@
+import type { AppUserPublicDataDto } from "./User";
+
 export type JobseekerDto = {
   userName: string;
   profession: string;
@@ -13,6 +15,11 @@ export type JobseekerDto = {
   selfDescription: string;
   isEmployed: boolean;
   registerDate: Date;
+};
+
+export type JobseekerFullPublicDataDto = {
+  appUserPublicData: AppUserPublicDataDto;
+  jobseekerData: JobseekerDto;
 };
 
 export type DegreeType =

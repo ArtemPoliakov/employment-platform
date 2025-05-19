@@ -16,6 +16,7 @@ import HomePage from "./Pages/HomePage/components/HomePage";
 import VacancyPage from "./Pages/VacancyPage/VacancyPage";
 import ApplicationsPage from "./Pages/ApplicationsPage/ApplicationsPage";
 import OffersPage from "./Pages/OffersPage/OffersPage";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 function App() {
   const router = createBrowserRouter(
@@ -24,6 +25,10 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="applications" element={<ApplicationsPage />} />
         <Route path="offers" element={<OffersPage />} />
+        <Route
+          path="profile/:profileRole/:viewMode/:userName"
+          element={<ProfilePage />}
+        />
         <Route path="auth" element={<AuthPage />} />
         <Route path="vacancy/:vacancyId/:viewMode" element={<VacancyPage />} />
       </Route>

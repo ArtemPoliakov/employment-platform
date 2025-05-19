@@ -10,9 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
 import clsx from "clsx";
+import { useAuth } from "../../../Context/useAuth";
 const JobseekerNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
   const handleBack = () => {
     if (window.history.length > 1 && location.pathname !== "/") navigate(-1);
   };
@@ -56,7 +58,10 @@ const JobseekerNavbar = () => {
           </Link>
         </li>
         <li className={classes["home__navbar-link-li"]}>
-          <Link to="/" className={classes["home__navbar-link"]}>
+          <Link
+            to={`/profile/jobseeker/owner/${user?.userName}`}
+            className={classes["home__navbar-link"]}
+          >
             <FontAwesomeIcon icon={faUser} size="2x" />
             Profile
           </Link>
