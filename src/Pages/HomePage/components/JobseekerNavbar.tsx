@@ -50,7 +50,7 @@ const JobseekerNavbar = () => {
           </Link>
         </li>
         <li className={classes["home__navbar-link-li"]}>
-          <Link to="/" className={classes["home__navbar-link"]}>
+          <Link to="/offers" className={classes["home__navbar-link"]}>
             <FontAwesomeIcon icon={faMessage} size="2x" />
             Offers
           </Link>

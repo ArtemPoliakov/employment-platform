@@ -1,0 +1,36 @@
+.offers__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 600px;
+  height: 75vh;
+  border-radius: 8px;
+  align-self: center;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.offers__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.offers__heading {
+  font-size: 2.5rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+}
+
+.offers__msg {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+  margin: auto;
+}

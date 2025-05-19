@@ -1,0 +1,23 @@
+.offer-card__button--accept {
+  background-color: var(--ok-color);
+}
+
+.offer-card__button--reject {
+  background-color: var(--danger-color);
+}
+
+.card__buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card__status-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.offer-card__accepted-msg {
+  color: var(--ok-color);
+  margin-top: auto;
+}
