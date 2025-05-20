@@ -1,8 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
-import type { LoginUser, RegisterUser, UserProfile } from "../Models/User";
+import type {
+  EditUser,
+  LoginUser,
+  RegisterUser,
+  UserProfile,
+} from "../Models/User";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { loginAPI, registerAPI } from "../Services/AuthService";
+import { editUserAPI, loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 
 type UserContextType = {
@@ -12,6 +17,7 @@ type UserContextType = {
   loginUser: (props: LoginUser) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
+  editUser: (props: EditUser) => Promise<boolean>;
 };
 
 type Props = { children: React.ReactNode };
@@ -97,9 +103,41 @@ export const UserProvider = ({ children }: Props) => {
     navigate("/");
   };
 
+  const editUser = async (props: EditUser): Promise<boolean> => {
+    const newUserData = await editUserAPI(props);
+    if (newUserData) {
+      const userObj = {
+        userName: newUserData.userName,
+        email: newUserData.email,
+        role: newUserData.role,
+        phoneNumber: newUserData.phoneNumber,
+        accountDataId: newUserData.accountDataId,
+      };
+      localStorage.setItem("user", JSON.stringify(userObj));
+      setUser(userObj!);
+
+      localStorage.setItem("token", newUserData.token);
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + newUserData?.token;
+      setToken(newUserData?.token!);
+
+      toast.success("Edit Success!");
+      return true;
+    }
+    return false;
+  };
+
   return (
     <UserContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}
+      value={{
+        loginUser,
+        user,
+        token,
+        logout,
+        isLoggedIn,
+        registerUser,
+        editUser,
+      }}
     >
       {isReady ? children : null}
     </UserContext.Provider>

@@ -7,14 +7,23 @@ import DialogWindow from "../../../reusable_components/DialogWindow/DialogWindow
 import YesNoDialog from "../../../reusable_components/YesNoDialog/YesNoDialog";
 import { useAuth } from "../../../Context/useAuth";
 import { useNavigate } from "react-router-dom";
+import EditAccountDataForm from "../EditAccountDataForm/EditAccountDataForm";
+import { useQueryClient } from "@tanstack/react-query";
 
-type Props = { accountData: AppUserPublicDataDto | undefined };
+type Props = {
+  accountData: AppUserPublicDataDto | undefined;
+  queryKey: string;
+};
 
 const AccountDataCard = (props: Props) => {
-  const { accountData } = props;
+  const { accountData, queryKey } = props;
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const client = useQueryClient();
+
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
   return (
     <>
       <div className={classes["account-data-card"]}>
@@ -34,6 +43,7 @@ const AccountDataCard = (props: Props) => {
         </div>
         <div className={classes["account-data-card__buttons"]}>
           <button
+            onClick={() => setIsEditDialogOpen(true)}
             className={clsx(
               reusableClasses["btn"],
               classes["account-data-card__button"]
@@ -70,6 +80,16 @@ const AccountDataCard = (props: Props) => {
         }}
       >
         <YesNoDialog message={"Are you sure to log out?"} />
+      </DialogWindow>
+
+      <DialogWindow
+        show={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+        onSubmit={() => {
+          setIsEditDialogOpen(false);
+        }}
+      >
+        <EditAccountDataForm accountData={accountData} queryKey={queryKey} />
       </DialogWindow>
     </>
   );

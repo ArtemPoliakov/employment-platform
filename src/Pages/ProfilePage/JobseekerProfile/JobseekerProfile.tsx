@@ -6,13 +6,16 @@ import classes from "./jobseeker_profile_styles.module.css";
 import React from "react";
 import AccountDataCard from "../AccountDataCard/AccountDataCard";
 import JobseekerDataCard from "./JobseekerDataCard/JobseekerDataCard";
+import config from "../../../config";
 
 type Props = { viewMode: string; userName: string };
 
 const JobseekerProfile = (props: Props) => {
+  const QUERY_KEY = "jobseekerProfile";
+  const { viewMode, userName } = props;
   const { data, error, isLoading } = useQuery({
-    queryKey: ["jobseekerProfile", props.userName],
-    queryFn: async () => await getAllJobseekerPublicDataAPI(props.userName),
+    queryKey: [QUERY_KEY, userName],
+    queryFn: async () => await getAllJobseekerPublicDataAPI(userName),
     staleTime: 60000,
     refetchOnMount: true,
   });
@@ -20,7 +23,10 @@ const JobseekerProfile = (props: Props) => {
     <>
       <JobseekerNavbar />
       <div className={classes["jobseeker-profile__container"]}>
-        <AccountDataCard accountData={data?.appUserPublicData} />
+        <AccountDataCard
+          accountData={data?.appUserPublicData}
+          queryKey={QUERY_KEY}
+        />
         <JobseekerDataCard jobseeker={data?.jobseekerData} />
       </div>
     </>

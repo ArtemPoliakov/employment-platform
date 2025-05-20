@@ -30,10 +30,11 @@
   font-size: 2rem;
   color: var(--primary-text-color);
   font-family: "Playfair display", serif;
+  margin-bottom: 0.5rem;
 }
 
 .form__input-label {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--primary-text-color);
 }
 

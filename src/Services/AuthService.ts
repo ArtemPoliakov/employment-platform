@@ -1,6 +1,11 @@
 import axios from "axios";
 import config from "../config";
-import type { LoginUser, RegisterUser, UserProfileToken } from "../Models/User";
+import type {
+  EditUser,
+  LoginUser,
+  RegisterUser,
+  UserProfileToken,
+} from "../Models/User";
 import { handleError } from "../Helpers/ErrorHandler";
 
 export const registerAPI = async (props: RegisterUser) => {
@@ -21,6 +26,17 @@ export const loginAPI = async (props: LoginUser) => {
       config.API_BASE_URL + "auth/login",
       props
     );
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const editUserAPI = async (props: EditUser) => {
+  try {
+    const data = await axios
+      .put<UserProfileToken>(config.API_BASE_URL + "auth/edit", props)
+      .then((res) => res.data);
     return data;
   } catch (error) {
     handleError(error);

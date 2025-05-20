@@ -11,6 +11,13 @@ export type LoginUser = {
   password: string;
 };
 
+export type EditUser = {
+  id: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+};
+
 export type UserProfileToken = {
   userName: string;
   email: string;
