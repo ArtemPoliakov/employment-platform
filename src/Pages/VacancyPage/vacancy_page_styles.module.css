@@ -41,3 +41,12 @@
   justify-content: space-between;
   margin-top: 3rem;
 }
+
+.vacancy__btn-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.vacancy-page__btn {
+  font-size: 1.2rem;
+}

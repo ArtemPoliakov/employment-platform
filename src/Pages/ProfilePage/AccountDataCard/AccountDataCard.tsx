@@ -14,10 +14,11 @@ import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 type Props = {
   accountData: AppUserPublicDataDto | undefined;
   queryKey: string;
+  viewMode: string;
 };
 
 const AccountDataCard = (props: Props) => {
-  const { accountData, queryKey } = props;
+  const { accountData, queryKey, viewMode } = props;
   const { logout } = useAuth();
   const navigate = useNavigate();
   const client = useQueryClient();
@@ -44,35 +45,37 @@ const AccountDataCard = (props: Props) => {
             {accountData?.phoneNumber}
           </p>
         </div>
-        <div className={classes["account-data-card__buttons"]}>
-          <button
-            onClick={() => setIsEditDialogOpen(true)}
-            className={clsx(
-              reusableClasses["btn"],
-              classes["account-data-card__button"]
-            )}
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => setIsLogoutDialogOpen(true)}
-            className={clsx(
-              reusableClasses["btn"],
-              classes["account-data-card__button"]
-            )}
-          >
-            Log out
-          </button>
-          <button
-            onClick={() => setIsChangePasswordDialogOpen(true)}
-            className={clsx(
-              reusableClasses["btn"],
-              classes["account-data-card__button"]
-            )}
-          >
-            Change password
-          </button>
-        </div>
+        {viewMode == "owner" && (
+          <div className={classes["account-data-card__buttons"]}>
+            <button
+              onClick={() => setIsEditDialogOpen(true)}
+              className={clsx(
+                reusableClasses["btn"],
+                classes["account-data-card__button"]
+              )}
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => setIsLogoutDialogOpen(true)}
+              className={clsx(
+                reusableClasses["btn"],
+                classes["account-data-card__button"]
+              )}
+            >
+              Log out
+            </button>
+            <button
+              onClick={() => setIsChangePasswordDialogOpen(true)}
+              className={clsx(
+                reusableClasses["btn"],
+                classes["account-data-card__button"]
+              )}
+            >
+              Change password
+            </button>
+          </div>
+        )}
       </div>
       <DialogWindow
         show={isLogoutDialogOpen}

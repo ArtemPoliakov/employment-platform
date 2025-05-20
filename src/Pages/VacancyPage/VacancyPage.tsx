@@ -3,10 +3,13 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getVacancyByIdAPI } from "../../Services/VacancyService";
 import classes from "./vacancy_page_styles.module.css";
+import reusableClasses from "./../../global_styles/reusable.module.css";
 import JobseekerNavbar from "../HomePage/components/JobseekerNavbar";
 import ManageApplyVacancyButton from "../HomePage/components/JobseekerHomePage/VacancySearchResultCard/ManageApplyOrCancelButton/ManageApplyOrCancelButton";
 import type { ApplicationStatus } from "../../Models/Application";
 import { useAuth } from "../../Context/useAuth";
+import LoadingSpinner from "../../reusable_components/LoadingSpinner/LoadingSpinner";
+import clsx from "clsx";
 type Props = {};
 
 const VacancyPage = (props: Props) => {
@@ -28,7 +31,11 @@ const VacancyPage = (props: Props) => {
     staleTime: 20000,
     refetchOnMount: "always",
   });
+  if (isLoading) return <LoadingSpinner />;
 
+  const redirectToCompanyProfile = () => {
+    navigate(`/profile/company/view/${data?.companyUserName}`);
+  };
   return (
     <>
       <JobseekerNavbar />
@@ -61,14 +68,27 @@ const VacancyPage = (props: Props) => {
             <p className={classes["vacancy__info-paragraph"]}>
               <b>Publish date:</b> {data?.publishDate.toString().split("T")[0]}
             </p>
-            {viewMode == "jobseekerViewApply" && (
-              <ManageApplyVacancyButton
-                vacancyId={vacancyId!}
-                applicationStatus={data?.applicationStatus as ApplicationStatus}
-                size="1.2rem"
-                queryKeys={["vacancy", vacancyId!]}
-              />
-            )}
+            <div className={classes["vacancy__btn-container"]}>
+              <button
+                className={clsx(
+                  reusableClasses["btn"],
+                  classes["vacancy-page__btn"]
+                )}
+                onClick={redirectToCompanyProfile}
+              >
+                Company profile
+              </button>
+              {viewMode == "jobseekerViewApply" && (
+                <ManageApplyVacancyButton
+                  vacancyId={vacancyId!}
+                  applicationStatus={
+                    data?.applicationStatus as ApplicationStatus
+                  }
+                  size="1.2rem"
+                  queryKeys={["vacancy", vacancyId!]}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import React from "react";
 import AccountDataCard from "../AccountDataCard/AccountDataCard";
 import JobseekerDataCard from "./JobseekerDataCard/JobseekerDataCard";
 import config from "../../../config";
+import LoadingSpinner from "../../../reusable_components/LoadingSpinner/LoadingSpinner";
 
 type Props = { viewMode: string; userName: string };
 
@@ -19,20 +20,22 @@ const JobseekerProfile = (props: Props) => {
     staleTime: 60000,
     refetchOnMount: true,
   });
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
-    <>
-      <JobseekerNavbar />
-      <div className={classes["jobseeker-profile__container"]}>
-        <AccountDataCard
-          accountData={data?.appUserPublicData}
-          queryKey={QUERY_KEY}
-        />
-        <JobseekerDataCard
-          jobseeker={data?.jobseekerData}
-          queryKey={QUERY_KEY}
-        />
-      </div>
-    </>
+    <div className={classes["jobseeker-profile__container"]}>
+      <AccountDataCard
+        accountData={data?.appUserPublicData}
+        viewMode={viewMode}
+        queryKey={QUERY_KEY}
+      />
+      <JobseekerDataCard
+        jobseeker={data?.jobseekerData}
+        viewMode={viewMode}
+        queryKey={QUERY_KEY}
+      />
+    </div>
   );
 };
 

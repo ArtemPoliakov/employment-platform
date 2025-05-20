@@ -7,10 +7,14 @@ import DialogWindow from "../../../../reusable_components/DialogWindow/DialogWin
 import JobseekerDataEditForm from "../../JobseekerDataEditForm/JobseekerDataEditForm";
 import { useQueryClient } from "@tanstack/react-query";
 
-type Props = { jobseeker: JobseekerDto | undefined; queryKey: string };
+type Props = {
+  jobseeker: JobseekerDto | undefined;
+  queryKey: string;
+  viewMode: string;
+};
 
 const JobseekerDataCard = (props: Props) => {
-  const { jobseeker, queryKey } = props;
+  const { jobseeker, queryKey, viewMode } = props;
   const [isEditJobseekerDataDialogOpen, setIsEditJobseekerDataDialogOpen] =
     useState(false);
   const client = useQueryClient();
@@ -60,17 +64,17 @@ const JobseekerDataCard = (props: Props) => {
             <b>Registration Date:</b>{" "}
             {jobseeker?.registerDate?.toString().split("T")[0]}
           </p>
-        </div>
-        <div className={classes["jobseeker-data-card__buttons"]}>
-          <button
-            onClick={() => setIsEditJobseekerDataDialogOpen(true)}
-            className={clsx(
-              reusableClasses["btn"],
-              classes["jobseeker-data-card__button"]
-            )}
-          >
-            Edit
-          </button>
+          {viewMode == "owner" && (
+            <button
+              onClick={() => setIsEditJobseekerDataDialogOpen(true)}
+              className={clsx(
+                reusableClasses["btn"],
+                classes["jobseeker-data-card__button"]
+              )}
+            >
+              Edit
+            </button>
+          )}
         </div>
       </div>
 
