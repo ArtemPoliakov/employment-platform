@@ -30,7 +30,8 @@ const JobseekerDataCard = (props: Props) => {
             {jobseeker?.experience === 1 ? "year" : "years"}
           </p>
           <p className={classes["jobseeker-data-card__info-item"]}>
-            <b>Education:</b> {jobseeker?.education}
+            <b>Education:</b>{" "}
+            {jobseeker?.education.toLowerCase().replace("_", " ")}
           </p>
           <p className={classes["jobseeker-data-card__info-item"]}>
             <b>Location:</b> {jobseeker?.location}

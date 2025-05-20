@@ -19,7 +19,9 @@ type Props = {
 };
 
 const validation = Yup.object().shape({
-  userName: Yup.string().required("Username is required"),
+  userName: Yup.string()
+    .required("Username is required")
+    .min(3, "Username should be at least 3 characters long"),
 
   email: Yup.string().required("Email is required").email("Invalid email"),
 
