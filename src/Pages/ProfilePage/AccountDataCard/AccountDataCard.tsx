@@ -9,6 +9,7 @@ import { useAuth } from "../../../Context/useAuth";
 import { useNavigate } from "react-router-dom";
 import EditAccountDataForm from "../EditAccountDataForm/EditAccountDataForm";
 import { useQueryClient } from "@tanstack/react-query";
+import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 
 type Props = {
   accountData: AppUserPublicDataDto | undefined;
@@ -23,6 +24,8 @@ const AccountDataCard = (props: Props) => {
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
+    useState(false);
 
   return (
     <>
@@ -61,6 +64,7 @@ const AccountDataCard = (props: Props) => {
             Log out
           </button>
           <button
+            onClick={() => setIsChangePasswordDialogOpen(true)}
             className={clsx(
               reusableClasses["btn"],
               classes["account-data-card__button"]
@@ -90,6 +94,16 @@ const AccountDataCard = (props: Props) => {
         }}
       >
         <EditAccountDataForm accountData={accountData} queryKey={queryKey} />
+      </DialogWindow>
+
+      <DialogWindow
+        show={isChangePasswordDialogOpen}
+        onClose={() => setIsChangePasswordDialogOpen(false)}
+        onSubmit={() => {
+          setIsChangePasswordDialogOpen(false);
+        }}
+      >
+        <ChangePasswordForm />
       </DialogWindow>
     </>
   );

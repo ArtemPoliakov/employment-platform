@@ -15,7 +15,7 @@ const DialogWindow = (props: Props) => {
 
   if (!show) return null;
   return (
-    <div className={classes["backdrop"]} onClick={onClose}>
+    <div className={classes["backdrop"]}>
       <div className={classes["modal"]} onClick={(e) => e.stopPropagation()}>
         <button className={classes["closeButton"]} onClick={onClose}>
           ×

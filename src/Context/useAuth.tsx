@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import type {
+  ChangePassword,
   EditUser,
   LoginUser,
   RegisterUser,
@@ -7,7 +8,12 @@ import type {
 } from "../Models/User";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { editUserAPI, loginAPI, registerAPI } from "../Services/AuthService";
+import {
+  changePasswordAPI,
+  editUserAPI,
+  loginAPI,
+  registerAPI,
+} from "../Services/AuthService";
 import { toast } from "react-toastify";
 
 type UserContextType = {
@@ -18,6 +24,7 @@ type UserContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
   editUser: (props: EditUser) => Promise<boolean>;
+  changePassword: (props: ChangePassword) => Promise<boolean>;
 };
 
 type Props = { children: React.ReactNode };
@@ -127,6 +134,18 @@ export const UserProvider = ({ children }: Props) => {
     return false;
   };
 
+  const changePassword = async (props: ChangePassword): Promise<boolean> => {
+    const res = await changePasswordAPI(props);
+    if (res) {
+      localStorage.setItem("token", res.token);
+      axios.defaults.headers.common["Authorization"] = "Bearer " + res?.token;
+      setToken(res?.token!);
+      toast.success("Password changed successfully");
+      return true;
+    }
+    return false;
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -137,6 +156,7 @@ export const UserProvider = ({ children }: Props) => {
         isLoggedIn,
         registerUser,
         editUser,
+        changePassword,
       }}
     >
       {isReady ? children : null}

@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overflow: scroll;
 }
 
 .modal {
@@ -20,6 +21,7 @@
   position: relative;
   width: 90%;
   max-width: 500px;
+  margin: auto;
 }
 
 .closeButton {

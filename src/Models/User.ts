@@ -18,6 +18,12 @@ export type EditUser = {
   phoneNumber: string;
 };
 
+export type ChangePassword = {
+  userName: string;
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type UserProfileToken = {
   userName: string;
   email: string;

@@ -27,7 +27,10 @@ const JobseekerProfile = (props: Props) => {
           accountData={data?.appUserPublicData}
           queryKey={QUERY_KEY}
         />
-        <JobseekerDataCard jobseeker={data?.jobseekerData} />
+        <JobseekerDataCard
+          jobseeker={data?.jobseekerData}
+          queryKey={QUERY_KEY}
+        />
       </div>
     </>
   );
