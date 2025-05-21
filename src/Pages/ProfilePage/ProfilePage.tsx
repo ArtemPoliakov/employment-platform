@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import classes from "./profile_page_styles.module.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import CompanyProfile from "./CompanyProfile/CompanyProfile";
 import JobseekerProfile from "./JobseekerProfile/JobseekerProfile";
 import { useAuth } from "../../Context/useAuth";
@@ -11,7 +11,14 @@ type Props = {};
 
 const ProfilePage = (props: Props) => {
   const { profileRole, viewMode, userName } = useParams();
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/auth");
+    }
+  }, []);
 
   let navbar;
   switch (user?.role.toLowerCase()) {
