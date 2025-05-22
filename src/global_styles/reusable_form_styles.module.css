@@ -1,0 +1,44 @@
+.form__container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form__input-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__btn {
+  align-self: flex-start;
+  font-size: 1.2rem !important;
+  transition: scale 0.2s ease-in-out;
+}
+
+.form__btn:hover {
+  scale: 1.1;
+}
+
+.form__heading {
+  font-size: 2rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+  margin-bottom: 0.5rem;
+}
+
+.form__input-label {
+  font-size: 1rem;
+  color: var(--primary-text-color);
+}
+
+.form__format-warning-text {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+}

@@ -3,8 +3,9 @@
   --secondary-color: #a3b1c6;
   --darker-bg-color: #d1e0e8;
   --lighter-bg-color: #f7f9fc;
-  --ok-color: #93d976;
+  --ok-color: green;
   --danger-color: #ff0e0e;
+  --pending-color: #c5a518;
   --usual-element-color: #8a98a8;
   --primary-text-color: #4a4f58;
   --secondary-text-color: #6d7782;

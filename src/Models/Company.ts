@@ -1,7 +1,4 @@
-export type CreateCompanyDto = {
-  SelfDescription: string;
-  Location: string;
-};
+import type { AppUserPublicDataDto } from "./User";
 
 export type CompanyDto = {
   userName: string;
@@ -9,4 +6,9 @@ export type CompanyDto = {
   location: string;
   registerDate: Date;
   appUserId: string;
+};
+
+export type CompanyFullDataDto = {
+  appUserPublicData: AppUserPublicDataDto;
+  companyData: CompanyDto;
 };

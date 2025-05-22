@@ -1,0 +1,13 @@
+.jobseeker-profile__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-self: center;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  justify-items: center;
+  background-color: var(--darker-bg-color);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  width: clamp(600px, 50%, 1200px);
+}

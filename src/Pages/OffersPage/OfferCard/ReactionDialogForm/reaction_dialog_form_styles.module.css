@@ -1,0 +1,9 @@
+.ok-btn {
+  background-color: var(--ok-color);
+  align-self: center;
+  padding-inline: 2em;
+}
+
+.reaction-dialog__heading {
+  text-align: center;
+}

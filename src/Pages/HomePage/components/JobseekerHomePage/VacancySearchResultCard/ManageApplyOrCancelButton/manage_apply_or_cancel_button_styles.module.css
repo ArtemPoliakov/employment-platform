@@ -1,0 +1,9 @@
+.accepted-msg {
+  color: green;
+  align-self: center;
+}
+
+.rejected-msg {
+  color: var(--danger-color);
+  align-self: center;
+}

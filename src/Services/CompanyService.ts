@@ -1,19 +1,16 @@
 import axios from "axios";
-import type { CompanyDto } from "../Models/Company";
 import config from "../config";
+import type { CompanyFullDataDto } from "../Models/Company";
 import { handleError } from "../Helpers/ErrorHandler";
 
-export const createDefaultCompanyAPI = async () => {
-  const defaultCompany = {
-    SelfDescription: "none",
-    Location: "none",
-  };
+export const getCompanyFullDataAPI = async (userName: string) => {
   try {
-    const response = await axios.post<CompanyDto>(
-      config.API_BASE_URL + "company/create",
-      defaultCompany
-    );
-    return response;
+    const data = await axios
+      .get<CompanyFullDataDto>(
+        config.API_BASE_URL + `company/getAllData/${userName}`
+      )
+      .then((res) => res.data);
+    return data;
   } catch (error) {
     handleError(error);
   }

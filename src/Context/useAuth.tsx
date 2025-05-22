@@ -1,11 +1,20 @@
 import React, { createContext, useEffect, useState } from "react";
-import type { LoginUser, RegisterUser, UserProfile } from "../Models/User";
+import type {
+  ChangePassword,
+  EditUser,
+  LoginUser,
+  RegisterUser,
+  UserProfile,
+} from "../Models/User";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { loginAPI, registerAPI } from "../Services/AuthService";
+import {
+  changePasswordAPI,
+  editUserAPI,
+  loginAPI,
+  registerAPI,
+} from "../Services/AuthService";
 import { toast } from "react-toastify";
-import { createDefaultJobseekerAPI } from "../Services/JobseekerService";
-import { createDefaultCompanyAPI } from "../Services/CompanyService";
 
 type UserContextType = {
   user: UserProfile | null;
@@ -14,6 +23,8 @@ type UserContextType = {
   loginUser: (props: LoginUser) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
+  editUser: (props: EditUser) => Promise<boolean>;
+  changePassword: (props: ChangePassword) => Promise<boolean>;
 };
 
 type Props = { children: React.ReactNode };
@@ -43,27 +54,19 @@ export const UserProvider = ({ children }: Props) => {
 
       if (res) {
         localStorage.setItem("token", res.data.token);
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + res?.data.token;
         const userObj = {
           userName: res.data.userName,
           email: res.data.email,
           role: res.data.role,
           phoneNumber: res.data.phoneNumber,
+          accountDataId: res.data.accountDataId,
         };
         localStorage.setItem("user", JSON.stringify(userObj));
         setToken(res.data.token);
         setUser(userObj);
         toast.success("Register Success!");
-
-        if (props.safeRole === "JOBSEEKER") {
-          await createDefaultJobseekerAPI().catch(() =>
-            toast.warn("Server error occurred while creating jobseeker profile")
-          );
-        } else if (props.safeRole === "COMPANY") {
-          await createDefaultCompanyAPI().catch(() =>
-            toast.warn("Server error occurred while creating company profile")
-          );
-        }
-
         navigate("/");
       }
     } catch (e) {
@@ -76,11 +79,14 @@ export const UserProvider = ({ children }: Props) => {
       .then((res) => {
         if (res) {
           localStorage.setItem("token", res?.data.token);
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + res?.data.token;
           const userObj = {
             userName: res?.data.userName,
             email: res?.data.email,
             role: res?.data.role,
             phoneNumber: res?.data.phoneNumber,
+            accountDataId: res?.data.accountDataId,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
@@ -101,12 +107,57 @@ export const UserProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken("");
-    navigate("/"); // consider later
+    navigate("/");
+  };
+
+  const editUser = async (props: EditUser): Promise<boolean> => {
+    const newUserData = await editUserAPI(props);
+    if (newUserData) {
+      const userObj = {
+        userName: newUserData.userName,
+        email: newUserData.email,
+        role: newUserData.role,
+        phoneNumber: newUserData.phoneNumber,
+        accountDataId: newUserData.accountDataId,
+      };
+      localStorage.setItem("user", JSON.stringify(userObj));
+      setUser(userObj!);
+
+      localStorage.setItem("token", newUserData.token);
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + newUserData?.token;
+      setToken(newUserData?.token!);
+
+      toast.success("Edit Success!");
+      return true;
+    }
+    return false;
+  };
+
+  const changePassword = async (props: ChangePassword): Promise<boolean> => {
+    const res = await changePasswordAPI(props);
+    if (res) {
+      localStorage.setItem("token", res.token);
+      axios.defaults.headers.common["Authorization"] = "Bearer " + res?.token;
+      setToken(res?.token!);
+      toast.success("Password changed successfully");
+      return true;
+    }
+    return false;
   };
 
   return (
     <UserContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}
+      value={{
+        loginUser,
+        user,
+        token,
+        logout,
+        isLoggedIn,
+        registerUser,
+        editUser,
+        changePassword,
+      }}
     >
       {isReady ? children : null}
     </UserContext.Provider>

@@ -1,0 +1,52 @@
+.vacancy {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: clamp(600px, 60%, 1200px);
+  margin-top: 2rem;
+  color: var(--primary-text-color);
+  background-color: var(--darker-bg-color);
+  padding: 1rem;
+  border-radius: 8px;
+  padding-inline: 2rem;
+  margin-bottom: 4rem;
+}
+
+.vacancy__title {
+  font-family: "Playfair display", serif;
+  font-size: 3rem;
+}
+
+.vacancy__companyName {
+  font-family: "Playfair display", serif;
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+  font-style: italic;
+}
+
+.vacancy__info-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.vacancy__info-paragraph {
+  text-align: justify;
+}
+
+.vacancy__info-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.vacancy__btn-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.vacancy-page__btn {
+  font-size: 1.2rem;
+}

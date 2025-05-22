@@ -1,17 +1,4 @@
-export type CreateJobseekerDto = {
-  profession: string;
-  experience: number;
-  education: DegreeType;
-  location: string;
-  previousWorkplace: string;
-  previousPosition: string;
-  quitReason: string;
-  familyConditions: string;
-  livingConditions: string;
-  preferences: string;
-  selfDescription: string;
-  isEmployed: boolean;
-};
+import type { AppUserPublicDataDto } from "./User";
 
 export type JobseekerDto = {
   userName: string;
@@ -30,7 +17,43 @@ export type JobseekerDto = {
   registerDate: Date;
 };
 
-export type DegreeType =
+export type JobseekerFullPublicDataDto = {
+  appUserPublicData: AppUserPublicDataDto;
+  jobseekerData: JobseekerDto;
+};
+
+export type JobseekerEditDto = {
+  profession: string;
+  experience: number;
+  education: DegreeType;
+  location: string;
+  previousWorkplace: string;
+  previousPosition: string;
+  quitReason: string;
+  familyConditions: string;
+  livingConditions: string;
+  preferences: string;
+  selfDescription: string;
+  isEmployed: boolean;
+};
+
+export const degreeTypesArray = [
+  "NONE",
+  "PRIMARY",
+  "SECONDARY",
+  "HIGH_SCHOOL",
+  "ASSOCIATE",
+  "BACHELOR",
+  "MASTER",
+  "DOCTORATE",
+  "PROFESSIONAL",
+  "VOCATIONAL",
+  "OTHER",
+] as const;
+
+export type DegreeType = (typeof degreeTypesArray)[number];
+
+/* export type DegreeType =
   | "NONE"
   | "PRIMARY"
   | "SECONDARY"
@@ -42,3 +65,4 @@ export type DegreeType =
   | "PROFESSIONAL"
   | "VOCATIONAL"
   | "OTHER";
+ */

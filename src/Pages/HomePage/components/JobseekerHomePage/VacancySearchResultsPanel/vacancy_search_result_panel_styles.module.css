@@ -1,0 +1,33 @@
+.vacancy-search-results__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 600px;
+  height: 75vh;
+  border-radius: 8px;
+}
+
+.vacancy-search-results__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.vacancy-search-results__heading {
+  font-size: 2.5rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+}
+
+.vacancy-search-results__msg {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: var(--primary-text-color);
+  font-family: "Playfair display", serif;
+  margin: auto;
+}

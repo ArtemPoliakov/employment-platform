@@ -11,11 +11,25 @@ export type LoginUser = {
   password: string;
 };
 
+export type EditUser = {
+  id: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+};
+
+export type ChangePassword = {
+  userName: string;
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type UserProfileToken = {
   userName: string;
   email: string;
   phoneNumber: string;
   role: "JOBSEEKER" | "COMPANY";
+  accountDataId: string;
   token: string;
 };
 
@@ -24,4 +38,13 @@ export type UserProfile = {
   email: string;
   phoneNumber: string;
   role: "JOBSEEKER" | "COMPANY";
+  accountDataId: string;
+};
+
+export type AppUserPublicDataDto = {
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  id: string;
 };

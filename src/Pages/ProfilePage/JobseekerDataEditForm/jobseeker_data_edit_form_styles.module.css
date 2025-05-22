@@ -1,0 +1,29 @@
+.jobseeker-data-edit-form__checkbox {
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  border: 1px solid var(--usual-element-color);
+  background-color: var(--lighter-bg-color);
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.checkbox-wrapper {
+  position: relative;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  color: var(--regular-text-color);
+  pointer-events: none;
+}
